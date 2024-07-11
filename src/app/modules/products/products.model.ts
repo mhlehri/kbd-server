@@ -8,6 +8,7 @@ const productSchema = new Schema<TProduct>({
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   rating: { type: Number, required: true },
+  image: { type: String, required: true },
 });
 
 export const Product = mongoose.model("Products", productSchema);

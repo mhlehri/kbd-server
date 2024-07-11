@@ -5,4 +5,5 @@ export type TProduct = {
   price: number;
   quantity: number;
   rating: number;
+  image: string;
 };

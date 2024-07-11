@@ -6,9 +6,12 @@ export const createProductIntoDB = async (data: TProduct) => {
   return res;
 };
 export const getProductsFromDB = async () => {
-  const res = await Product.find();
-  return res;
+  const products = await Product.find();
+  return products;
 };
-export const getProductByIdFromDB = async () => {};
+export const getProductByIdFromDB = async (id: string) => {
+  const product = await Product.findById(id);
+  return product;
+};
 export const deleteProductFromDB = async () => {};
 export const updateProductIntoDB = async () => {};
