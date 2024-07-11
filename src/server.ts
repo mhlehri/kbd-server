@@ -7,15 +7,12 @@ let server: Server;
 
 (async function () {
   try {
-    await mongoose.connect(
-      "mongodb+srv://mahmudhassanlehri:mhlehri101@cluster0.yynznjj.mongodb.net/kbd?retryWrites=true&w=majority&appName=Cluster0mongodb+srv://mahmudhassanlehri:mhlehri101@cluster0"
-    );
+    await mongoose.connect(config.uri!);
     console.log("db connected successfully");
 
     server = app.listen(config.port, () => {
       console.log(`Server running on port http://localhost:${config.port}`);
     });
-    console.log(server);
   } catch (error) {
     console.log(error);
   }

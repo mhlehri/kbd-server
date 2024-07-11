@@ -7,4 +7,5 @@ const p = process.env;
 
 export default {
   port: p.PORT,
+  uri: p.URI,
 };
