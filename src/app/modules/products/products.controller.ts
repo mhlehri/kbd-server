@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { createProductIntoDB } from "./products.service";
+import { createProductIntoDB, getProductsFromDB } from "./products.service";
 
 export const addProduct: RequestHandler = async (req, res) => {
   try {
@@ -15,7 +15,14 @@ export const addProduct: RequestHandler = async (req, res) => {
     });
   }
 };
-export const getProducts: RequestHandler = () => {};
+export const getProducts: RequestHandler = async (req, res) => {
+  const data = await getProductsFromDB();
+  res.json({
+    success: true,
+    message: "Data retrieved successfully!",
+    data,
+  });
+};
 export const getProductById: RequestHandler = () => {};
 export const updateProduct: RequestHandler = () => {};
 export const deleteProduct: RequestHandler = () => {};
