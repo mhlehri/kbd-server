@@ -3,6 +3,7 @@ import { TProduct } from "./products.type";
 
 const productSchema = new Schema<TProduct>({
   name: { type: String, required: true, unique: true },
+  slug: { type: String, required: true },
   brand: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },

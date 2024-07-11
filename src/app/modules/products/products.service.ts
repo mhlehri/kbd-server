@@ -9,8 +9,8 @@ export const getProductsFromDB = async () => {
   const products = await Product.find();
   return products;
 };
-export const getProductByIdFromDB = async (id: string) => {
-  const product = await Product.findById(id);
+export const getProductBySlugFromDB = async (slug: string) => {
+  const product = await Product.findOne({ slug });
   return product;
 };
 export const deleteProductFromDB = async () => {};

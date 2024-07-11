@@ -1,13 +1,14 @@
 import { RequestHandler } from "express";
 import {
   createProductIntoDB,
-  getProductByIdFromDB,
+  getProductBySlugFromDB,
   getProductsFromDB,
 } from "./products.service";
 
 export const addProduct: RequestHandler = async (req, res) => {
+  const slug = req.body.name.replace(/\s/g, "-").lowercase();
   try {
-    await createProductIntoDB(req.body);
+    await createProductIntoDB({ slug, ...req.body });
     res.json({
       success: true,
       message: "Product added successfully!",
@@ -27,8 +28,8 @@ export const getProducts: RequestHandler = async (req, res) => {
     data,
   });
 };
-export const getProductById: RequestHandler = async (req, res) => {
-  const data = await getProductByIdFromDB(req.params.id);
+export const getProductBySlug: RequestHandler = async (req, res) => {
+  const data = await getProductBySlugFromDB(req.params.slug);
   res.json({
     success: true,
     message: "Data retrieved successfully!",
