@@ -1,7 +1,11 @@
 {
   "name": "backend",
   "scripts": {
-    "dev": "tsnd --respawn src/server.ts"
+    "dev": "tsnd --respawn src/server.ts",
+    "prod": "node dist/server.js",
+    "build": "tsc",
+    "lint": "eslint src",
+    "fix": "eslint src --fix"
   },
   "dependencies": {
     "cors": "^2.8.5",

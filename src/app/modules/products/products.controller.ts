@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import {
   createProductIntoDB,
+  deleteProductFromDB,
   getProductBySlugFromDB,
   getProductsFromDB,
 } from "./products.service";
@@ -37,4 +38,18 @@ export const getProductBySlug: RequestHandler = async (req, res) => {
   });
 };
 export const updateProduct: RequestHandler = () => {};
-export const deleteProduct: RequestHandler = () => {};
+
+export const deleteProduct: RequestHandler = async (req, res) => {
+  try {
+    await deleteProductFromDB(req.params.id);
+    res.json({
+      success: true,
+      message: "Successfully deleted.",
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: "Failed to delete.",
+    });
+  }
+};
