@@ -2,6 +2,10 @@ import { Product } from "./products.model";
 import { TProduct } from "./products.type";
 
 export const createProductIntoDB = async (data: TProduct) => {
+  const isExists = await Product.exists({ name: data.name });
+  if (isExists) {
+    throw new Error("This product already exits.");
+  }
   const res = await Product.create(data);
   return res;
 };

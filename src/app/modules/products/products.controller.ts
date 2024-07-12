@@ -6,9 +6,9 @@ import {
 } from "./products.service";
 
 export const addProduct: RequestHandler = async (req, res) => {
-  const slug = req.body.name.replace(/\s/g, "-").lowercase();
+  console.log(req.body);
   try {
-    await createProductIntoDB({ slug, ...req.body });
+    await createProductIntoDB(req.body);
     res.json({
       success: true,
       message: "Product added successfully!",
