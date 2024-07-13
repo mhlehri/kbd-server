@@ -25,8 +25,10 @@ export const addProduct: RequestHandler = async (req, res) => {
 export const getProducts: RequestHandler = async (req, res) => {
   const search = req.query?.search;
   const sort = req.query?.sort;
+  const min = req.query?.min;
+  const max = req.query?.max;
   try {
-    const data = await getProductsFromDB({ search, sort });
+    const data = await getProductsFromDB({ search, sort, min, max });
     res.json({
       success: true,
       message: "Data retrieved successfully!",

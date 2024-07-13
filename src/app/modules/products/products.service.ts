@@ -10,8 +10,12 @@ export const createProductIntoDB = async (data: TProduct) => {
   const res = await Product.create(data);
   return res;
 };
-export const getProductsFromDB = async ({ search, sort }: any) => {
-  const query: any = {};
+export const getProductsFromDB = async ({ search, sort, min, max }: any) => {
+  const query: any = {
+    price: {
+      $gt: 0,
+    },
+  };
   const sorted: any = {
     createdAt: 1,
   };
@@ -24,6 +28,13 @@ export const getProductsFromDB = async ({ search, sort }: any) => {
       { brand: { $regex: search, $options: "i" } },
     ];
   }
+  if (min) {
+    query.price.$gte = min;
+  }
+  if (max) {
+    query.price.$lte = max;
+  }
+  console.log(query);
 
   const products = await Product.find(query).sort(sorted);
   return products;
