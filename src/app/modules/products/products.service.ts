@@ -9,8 +9,17 @@ export const createProductIntoDB = async (data: TProduct) => {
   const res = await Product.create(data);
   return res;
 };
-export const getProductsFromDB = async () => {
-  const products = await Product.find();
+export const getProductsFromDB = async (search: string) => {
+  const query: any = {};
+  console.log(search);
+  if (search) {
+    query.$or = [
+      { name: { $regex: search, $options: "i" } },
+      { brand: { $regex: search, $options: "i" } },
+    ];
+  }
+
+  const products = await Product.find(query);
   return products;
 };
 

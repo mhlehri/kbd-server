@@ -23,8 +23,9 @@ export const addProduct: RequestHandler = async (req, res) => {
 };
 
 export const getProducts: RequestHandler = async (req, res) => {
+  const search = req.query?.search;
   try {
-    const data = await getProductsFromDB();
+    const data = await getProductsFromDB(search as string);
     res.json({
       success: true,
       message: "Data retrieved successfully!",
@@ -34,6 +35,7 @@ export const getProducts: RequestHandler = async (req, res) => {
     res.json({
       success: false,
       message: "Failed to retrieve data!",
+      err: (error as Error).message,
     });
   }
 };
@@ -54,12 +56,18 @@ export const getProductBySlug: RequestHandler = async (req, res) => {
   }
 };
 export const updateProduct: RequestHandler = async (req, res) => {
-  const data = await updateProductIntoDB(req.params.id, req.body);
-  res.json({
-    success: true,
-    message: "Product updated successfully!",
-    data,
-  });
+  try {
+    await updateProductIntoDB(req.params.id, req.body);
+    res.json({
+      success: true,
+      message: "Product updated successfully!",
+    });
+  } catch (error) {
+    res.json({
+      success: true,
+      message: "Failed to update product!",
+    });
+  }
 };
 
 export const deleteProduct: RequestHandler = async (req, res) => {
