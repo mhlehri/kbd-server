@@ -23,4 +23,11 @@ export const deleteProductFromDB = async (id: string) => {
   const res = await Product.findByIdAndDelete(id);
   return res;
 };
-export const updateProductIntoDB = async () => {};
+
+export const updateProductIntoDB = async (
+  id: string,
+  body: Partial<TProduct>
+) => {
+  const res = await Product.findByIdAndUpdate(id, body, { new: true });
+  return res;
+};
