@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Product } from "./products.model";
 import { TProduct } from "./products.type";
 
@@ -9,9 +10,14 @@ export const createProductIntoDB = async (data: TProduct) => {
   const res = await Product.create(data);
   return res;
 };
-export const getProductsFromDB = async (search: string) => {
+export const getProductsFromDB = async ({ search, sort }: any) => {
   const query: any = {};
-  console.log(search);
+  const sorted: any = {
+    createdAt: 1,
+  };
+  if (sort) {
+    sorted.price = sort;
+  }
   if (search) {
     query.$or = [
       { name: { $regex: search, $options: "i" } },
@@ -19,7 +25,7 @@ export const getProductsFromDB = async (search: string) => {
     ];
   }
 
-  const products = await Product.find(query);
+  const products = await Product.find(query).sort(sorted);
   return products;
 };
 
