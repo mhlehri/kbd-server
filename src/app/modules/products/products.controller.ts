@@ -5,6 +5,7 @@ import {
   getProductBySlugFromDB,
   getProductsFromDB,
   updateProductIntoDB,
+  updateProductsIntoDB,
 } from "./products.service";
 
 export const addProduct: RequestHandler = async (req, res) => {
@@ -67,8 +68,27 @@ export const updateProduct: RequestHandler = async (req, res) => {
     });
   } catch (error) {
     res.json({
-      success: true,
+      success: false,
       message: "Failed to update product!",
+    });
+  }
+};
+
+export const updateProducts: RequestHandler = async (req, res) => {
+  console.log(req.body);
+  try {
+    const result = await updateProductsIntoDB(req.body);
+
+    res.json({
+      success: true,
+      message: "Product updated successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: "Failed to update product!",
+      err: (error as Error).message,
     });
   }
 };

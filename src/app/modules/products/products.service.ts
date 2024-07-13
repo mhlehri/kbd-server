@@ -57,3 +57,21 @@ export const updateProductIntoDB = async (
   const res = await Product.findByIdAndUpdate(id, body, { new: true });
   return res;
 };
+
+export const updateProductsIntoDB = async (body: Partial<TProduct>[]) => {
+  const res = [];
+  console.log(body);
+  for (let i = 0; i < body.length; i++) {
+    const value = body[i].quantity;
+    const d = await Product.findOneAndUpdate(
+      { slug: body[i].slug },
+      { $inc: { quantity: -value! } },
+      {
+        new: true,
+      }
+    );
+    res.push(d);
+  }
+  console.log(res);
+  return res;
+};
